@@ -58,6 +58,7 @@ declare module 'vue' {
     MarketingHeader: typeof import('./../modules/marketing/components/Header.vue')['default']
     MarketingPageLayout: typeof import('./../layouts/marketing/PageLayout.vue')['default']
     MarketingPagesHome: typeof import('./../modules/marketing/pages/Home.vue')['default']
+    MarketingPagesNewHome: typeof import('./../modules/marketing/pages/NewHome.vue')['default']
     NavFooter: typeof import('./../components/NavFooter.vue')['default']
     NavMain: typeof import('./../components/NavMain.vue')['default']
     NavUser: typeof import('./../components/NavUser.vue')['default']

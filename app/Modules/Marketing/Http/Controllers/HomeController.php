@@ -12,6 +12,6 @@ final class HomeController extends Controller
 {
     public function __invoke(): Response
     {
-        return PageResponder::render('modules/marketing/pages/Home');
+        return PageResponder::render('modules/marketing/pages/NewHome');
     }
 }
