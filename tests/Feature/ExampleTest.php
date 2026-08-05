@@ -11,5 +11,5 @@ test('returns a successful response', function (): void {
     $testResponse = $this->get('/');
 
     $testResponse->assertStatus(200);
-    $testResponse->assertInertia(fn (Assert $assert): Assert => $assert->component('modules/marketing/pages/Home'));
+    $testResponse->assertInertia(fn (Assert $assert): Assert => $assert->component('modules/marketing/pages/NewHome'));
 });
