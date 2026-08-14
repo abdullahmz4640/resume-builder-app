@@ -103,7 +103,7 @@
         background: linear-gradient(90deg, #794a52 0%, #ac5f40 50%, #facc15 100%);
         box-shadow:
             0 8px 30px rgba(250, 130, 100, 0.12),
-            inset 0 -2px 6px rgba(0, 0, 0, 0.06);
+            inset 0 -2px 6px rgba(54, 49, 49, 0.06);
         position: relative;
     }
     .btn-primary::after {
