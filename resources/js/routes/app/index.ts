@@ -1,6 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 import settings from './settings'
 import admin from './admin'
+import resumes from './resumes'
 /**
 * @see \App\Modules\Dashboard\Http\Controllers\DashboardController::__invoke
  * @see app/Modules/Dashboard/Http/Controllers/DashboardController.php:13
@@ -47,6 +48,7 @@ const app = {
     dashboard: Object.assign(dashboard, dashboard),
 settings: Object.assign(settings, settings),
 admin: Object.assign(admin, admin),
+resumes: Object.assign(resumes, resumes),
 }
 
 export default app

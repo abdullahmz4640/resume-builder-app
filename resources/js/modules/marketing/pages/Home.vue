@@ -42,7 +42,7 @@
 
                             <div class="mt-6 flex flex-col gap-3 sm:flex-row">
                                 <Link
-                                    href="/dashboard"
+                                    href="/app/resumes/create"
                                     class="btn-primary inline-flex transform items-center justify-center rounded-full px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02]"
                                 >
                                     Create My Resume
