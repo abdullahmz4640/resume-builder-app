@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { useResumeStore } from '../stores/resumeStore.js';
-// import EducationForm from '../components/form-sections/EducationForm.vue';
-// import ExperienceForm from '../components/form-sections/ExperienceForm.vue';
-// import PersonalInfo from '../components/form-sections/PersonalInfo.vue';
+import { Link, router} from '@inertiajs/vue3';
+import { useResumeStore } from '../stores/resumeStore';
+import EducationForm from '../components/form-sections/EducationForm.vue';
+import ExperienceForm from '../components/form-sections/ExperienceForm.vue';
+import PersonalInfo from '../components/form-sections/PersonalInfo.vue';
 
 const store = useResumeStore();
+
+const goToPreview = () => {
+    router.get('/app/resumes/preview');
+    
+};
+
+
 </script>
 
 <template>
@@ -182,10 +189,11 @@ const store = useResumeStore();
                 </Link>
 
                 <button
-                    type="submit"
-                    class="inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 px-6 py-3 text-lg font-medium text-white shadow-md transition-transform hover:scale-105"
-                >
-                    Preview
+                      type="button"
+                      @click="goToPreview"
+                         class="inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 px-6 py-3 text-lg font-medium text-white shadow-md transition-transform hover:scale-105"
+                     >
+                          Preview
                 </button>
             </div>
         </div>
