@@ -3,11 +3,11 @@ import { ref } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import { useResumeStore } from '../stores/resumeStore';
 
-import backgroundImage from '@/assets/img/background.png';
-import emailIcon from '@/assets/img/email.png';
-import githubIcon from '@/assets/img/github.png';
-import linkedinIcon from '@/assets/img/linkdin.png';
-import phoneIcon from '@/assets/img/phone.png';
+import backgroundImage from '@/assets/img/background.png?inline';
+import emailIcon from '@/assets/img/email.png?inline';
+import githubIcon from '@/assets/img/github.png?inline';
+import linkedinIcon from '@/assets/img/linkedin.png?inline';
+import phoneIcon from '@/assets/img/phone.png?inline';
 
 const store = useResumeStore();
 
