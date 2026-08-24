@@ -337,7 +337,8 @@ const imageClick = (item: (typeof myImages)[number]) => {
                     </span>
                 </div>
             </div>
-        </div>
+        </div> 
+        
 
         <!-- Back Button -->
         <div
