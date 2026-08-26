@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Modules\Resume\Http\Controllers\ResumeCreateController;
 use App\Modules\Resume\Http\Controllers\ResumePreviewController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/app/resumes/create', ResumeCreateController::class)

@@ -1,32 +1,32 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
 interface Education {
-    school: string;
-    degree: string;
-    year: string;
+    school: string
+    degree: string
+    year: string
 }
 
 interface Experience {
-    company: string;
-    role: string;
-    duration: string;
-    description: string;
+    company: string
+    role: string
+    duration: string
+    description: string
 }
 
 interface Resume {
-    name: string;
-    field: string;
-    about: string;
-    email: string;
-    phone: string;
-    linkedin: string;
-    gitAccount: string;
-    education: Education[];
-    interest: string[];
-    skill: string[];
-    experience: Experience[];
-    project: string;
+    name: string
+    field: string
+    about: string
+    email: string
+    phone: string
+    linkedin: string
+    gitAccount: string
+    education: Education[]
+    interest: string[]
+    skill: string[]
+    experience: Experience[]
+    project: string
 }
 
 export const useResumeStore = defineStore('resume', () => {
@@ -43,8 +43,8 @@ export const useResumeStore = defineStore('resume', () => {
             {
                 school: '',
                 degree: '',
-                year: '',
-            },
+                year: ''
+            }
         ],
 
         interest: [''],
@@ -56,67 +56,67 @@ export const useResumeStore = defineStore('resume', () => {
                 company: '',
                 role: '',
                 duration: '',
-                description: '',
-            },
+                description: ''
+            }
         ],
 
-        project: '',
-    });
+        project: ''
+    })
 
-    const showPreview = ref(false);
+    const showPreview = ref(false)
 
     const addEducation = (): void => {
         resume.value.education.push({
             school: '',
             degree: '',
-            year: '',
-        });
-    };
+            year: ''
+        })
+    }
 
     const removeEducation = (index: number): void => {
         if (resume.value.education.length > 1) {
-            resume.value.education.splice(index, 1);
+            resume.value.education.splice(index, 1)
         }
-    };
+    }
 
     const addExperience = (): void => {
         resume.value.experience.push({
             company: '',
             role: '',
             duration: '',
-            description: '',
-        });
-    };
+            description: ''
+        })
+    }
 
     const removeExperience = (index: number): void => {
         if (resume.value.experience.length > 1) {
-            resume.value.experience.splice(index, 1);
+            resume.value.experience.splice(index, 1)
         }
-    };
+    }
 
     const addSkill = (): void => {
-        resume.value.skill.push('');
-    };
+        resume.value.skill.push('')
+    }
 
     const removeSkill = (index: number): void => {
         if (resume.value.skill.length > 1) {
-            resume.value.skill.splice(index, 1);
+            resume.value.skill.splice(index, 1)
         }
-    };
+    }
 
     const addInterest = (): void => {
-        resume.value.interest.push('');
-    };
+        resume.value.interest.push('')
+    }
 
     const removeInterest = (index: number): void => {
         if (resume.value.interest.length > 1) {
-            resume.value.interest.splice(index, 1);
+            resume.value.interest.splice(index, 1)
         }
-    };
+    }
 
     const togglePreview = (status: boolean): void => {
-        showPreview.value = status;
-    };
+        showPreview.value = status
+    }
 
     return {
         resume,
@@ -134,6 +134,6 @@ export const useResumeStore = defineStore('resume', () => {
         addInterest,
         removeInterest,
 
-        togglePreview,
-    };
-});
+        togglePreview
+    }
+})

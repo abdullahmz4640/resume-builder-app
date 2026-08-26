@@ -1,30 +1,20 @@
 <script setup lang="ts">
-import { Link, router} from '@inertiajs/vue3';
-import { useResumeStore } from '../stores/resumeStore';
-import EducationForm from '../components/form-sections/EducationForm.vue';
-import ExperienceForm from '../components/form-sections/ExperienceForm.vue';
-import PersonalInfo from '../components/form-sections/PersonalInfo.vue';
+    import { useResumeStore } from '../stores/resumeStore'
+    import EducationForm from '../components/form-sections/EducationForm.vue'
+    import ExperienceForm from '../components/form-sections/ExperienceForm.vue'
+    import PersonalInfo from '../components/form-sections/PersonalInfo.vue'
 
-const store = useResumeStore();
+    const store = useResumeStore()
 
-const goToPreview = () => {
-    router.get('/app/resumes/preview');
-    
-};
-
-
+    const goToPreview = () => {
+        router.get('/app/resumes/preview')
+    }
 </script>
 
 <template>
-    <form
-        class="flex min-h-screen w-screen justify-center bg-gray-900 pt-20 pb-20"
-    >
+    <form class="flex min-h-screen w-screen justify-center bg-gray-900 pt-20 pb-20">
         <div class="w-[700px] rounded-lg bg-white p-8 shadow-lg">
-            <h2
-                class="mb-10 flex justify-center text-2xl font-bold text-gray-800"
-            >
-                Resume Form
-            </h2>
+            <h2 class="mb-10 flex justify-center text-2xl font-bold text-gray-800">Resume Form</h2>
 
             <div class="grid grid-cols-2 gap-6">
                 <!-- Personal Information -->
@@ -33,15 +23,9 @@ const goToPreview = () => {
                 <!-- Skills -->
                 <div class="col-span-2 mt-4 border-t pt-4">
                     <div class="mb-4 flex items-center justify-between">
-                        <label class="text-xl font-bold text-gray-800">
-                            Skills
-                        </label>
+                        <label class="text-xl font-bold text-gray-800"> Skills </label>
 
-                        <button
-                            type="button"
-                            class="transition-transform hover:scale-110"
-                            @click="store.addSkill"
-                        >
+                        <button type="button" class="transition-transform hover:scale-110" @click="store.addSkill">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -50,33 +34,15 @@ const goToPreview = () => {
                                 stroke="currentColor"
                                 class="size-6"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M12 4.5v15m7.5-7.5h-15"
-                                />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
                         </button>
                     </div>
 
-                    <div
-                        v-for="(item, index) in store.resume.skill"
-                        :key="index"
-                        class="mb-2 flex gap-2"
-                    >
-                        <input
-                            v-model="store.resume.skill[index]"
-                            type="text"
-                            class="w-full rounded border p-2"
-                            placeholder="Enter skill"
-                        />
+                    <div v-for="(item, index) in store.resume.skill" :key="index" class="mb-2 flex gap-2">
+                        <input v-model="store.resume.skill[index]" type="text" class="w-full rounded border p-2" placeholder="Enter skill" />
 
-                        <button
-                            v-if="store.resume.skill.length > 1"
-                            type="button"
-                            class="text-red-500"
-                            @click="store.removeSkill(index)"
-                        >
+                        <button v-if="store.resume.skill.length > 1" type="button" class="text-red-500" @click="store.removeSkill(index)">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -104,15 +70,9 @@ const goToPreview = () => {
                 <!-- Interests -->
                 <div class="col-span-2 mt-4 border-t pt-4">
                     <div class="mb-4 flex items-center justify-between">
-                        <label class="text-xl font-bold text-gray-800">
-                            Interests
-                        </label>
+                        <label class="text-xl font-bold text-gray-800"> Interests </label>
 
-                        <button
-                            type="button"
-                            class="hover:scale-110"
-                            @click="store.addInterest"
-                        >
+                        <button type="button" class="hover:scale-110" @click="store.addInterest">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -121,33 +81,15 @@ const goToPreview = () => {
                                 stroke="currentColor"
                                 class="size-6"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M12 4.5v15m7.5-7.5h-15"
-                                />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
                         </button>
                     </div>
 
-                    <div
-                        v-for="(item, index) in store.resume.interest"
-                        :key="index"
-                        class="mb-2 flex gap-2"
-                    >
-                        <input
-                            v-model="store.resume.interest[index]"
-                            type="text"
-                            class="w-full rounded border p-2"
-                            placeholder="Enter interest"
-                        />
+                    <div v-for="(item, index) in store.resume.interest" :key="index" class="mb-2 flex gap-2">
+                        <input v-model="store.resume.interest[index]" type="text" class="w-full rounded border p-2" placeholder="Enter interest" />
 
-                        <button
-                            v-if="store.resume.interest.length > 1"
-                            type="button"
-                            class="text-red-500"
-                            @click="store.removeInterest(index)"
-                        >
+                        <button v-if="store.resume.interest.length > 1" type="button" class="text-red-500" @click="store.removeInterest(index)">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -168,14 +110,9 @@ const goToPreview = () => {
 
                 <!-- Projects -->
                 <div class="col-span-2">
-                    <label class="mb-2 block text-lg font-semibold">
-                        Projects
-                    </label>
+                    <label class="mb-2 block text-lg font-semibold"> Projects </label>
 
-                    <textarea
-                        v-model="store.resume.project"
-                        class="h-25 w-full rounded border p-3"
-                    ></textarea>
+                    <textarea v-model="store.resume.project" class="h-25 w-full rounded border p-3"></textarea>
                 </div>
             </div>
 
@@ -189,11 +126,11 @@ const goToPreview = () => {
                 </Link>
 
                 <button
-                      type="button"
-                      @click="goToPreview"
-                         class="inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 px-6 py-3 text-lg font-medium text-white shadow-md transition-transform hover:scale-105"
-                     >
-                          Preview
+                    type="button"
+                    @click="goToPreview"
+                    class="inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 px-6 py-3 text-lg font-medium text-white shadow-md transition-transform hover:scale-105"
+                >
+                    Preview
                 </button>
             </div>
         </div>

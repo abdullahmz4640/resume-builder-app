@@ -1,67 +1,30 @@
 <script setup lang="ts">
-import { useResumeStore } from '../../stores/resumeStore';
+    import { useResumeStore } from '../../stores/resumeStore'
 
-const store = useResumeStore();
+    const store = useResumeStore()
 </script>
 
 <template>
     <div class="col-span-2 mt-4 border-t pt-4">
         <!-- Header -->
         <div class="mb-4 flex items-center justify-between">
-            <label class="text-xl font-bold text-gray-800">
-                Experience
-            </label>
+            <label class="text-xl font-bold text-gray-800"> Experience </label>
 
-            <button
-                type="button"
-                class="transition-transform hover:scale-110"
-                @click="store.addExperience"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                    />
+            <button type="button" class="transition-transform hover:scale-110" @click="store.addExperience">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
             </button>
         </div>
 
         <!-- Experience List -->
-        <div
-            v-for="(exp, index) in store.resume.experience"
-            :key="index"
-            class="mb-6 rounded-lg border border-gray-200 bg-gray-25 p-4"
-        >
+        <div v-for="(exp, index) in store.resume.experience" :key="index" class="bg-gray-25 mb-6 rounded-lg border border-gray-200 p-4">
             <!-- Experience Header -->
-            <div
-                class="mb-4 flex items-center justify-between border-b pb-2"
-            >
-                <span class="text-sm font-bold text-gray-500">
-                    Job #{{ index + 1 }}
-                </span>
+            <div class="mb-4 flex items-center justify-between border-b pb-2">
+                <span class="text-sm font-bold text-gray-500"> Job #{{ index + 1 }} </span>
 
-                <button
-                    v-if="store.resume.experience.length > 1"
-                    type="button"
-                    class="text-red-500"
-                    @click="store.removeExperience(index)"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="size-6"
-                    >
+                <button v-if="store.resume.experience.length > 1" type="button" class="text-red-500" @click="store.removeExperience(index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -75,44 +38,23 @@ const store = useResumeStore();
             <div class="grid grid-cols-2 gap-4">
                 <!-- Company -->
                 <div>
-                    <label class="mb-1 block text-sm font-semibold">
-                        Company
-                    </label>
+                    <label class="mb-1 block text-sm font-semibold"> Company </label>
 
-                    <input
-                        v-model="exp.company"
-                        type="text"
-                        class="w-full rounded border p-2"
-                        placeholder="Company Name"
-                    />
+                    <input v-model="exp.company" type="text" class="w-full rounded border p-2" placeholder="Company Name" />
                 </div>
 
                 <!-- Role -->
                 <div>
-                    <label class="mb-1 block text-sm font-semibold">
-                        Role
-                    </label>
+                    <label class="mb-1 block text-sm font-semibold"> Role </label>
 
-                    <input
-                        v-model="exp.role"
-                        type="text"
-                        class="w-full rounded border p-2"
-                        placeholder="e.g. Frontend Developer"
-                    />
+                    <input v-model="exp.role" type="text" class="w-full rounded border p-2" placeholder="e.g. Frontend Developer" />
                 </div>
 
                 <!-- Duration -->
                 <div class="col-span-2">
-                    <label class="mb-1 block text-sm font-semibold">
-                        Duration
-                    </label>
+                    <label class="mb-1 block text-sm font-semibold"> Duration </label>
 
-                    <input
-                        v-model="exp.duration"
-                        type="text"
-                        class="w-full rounded border p-2"
-                        placeholder="e.g. 2022 - 2024"
-                    />
+                    <input v-model="exp.duration" type="text" class="w-full rounded border p-2" placeholder="e.g. 2022 - 2024" />
                 </div>
             </div>
         </div>
