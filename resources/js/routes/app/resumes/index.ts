@@ -84,9 +84,53 @@ preview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: preview.url(options),
     method: 'head',
 })
+
+/**
+* @see \App\Modules\Resume\Http\Controllers\NewResumePreviewController::__invoke
+ * @see app/Modules/Resume/Http/Controllers/NewResumePreviewController.php:13
+ * @route '/app/resumes/new-preview'
+ */
+export const newPreview = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: newPreview.url(options),
+    method: 'get',
+})
+
+newPreview.definition = {
+    methods: ["get","head"],
+    url: '/app/resumes/new-preview',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Modules\Resume\Http\Controllers\NewResumePreviewController::__invoke
+ * @see app/Modules/Resume/Http/Controllers/NewResumePreviewController.php:13
+ * @route '/app/resumes/new-preview'
+ */
+newPreview.url = (options?: RouteQueryOptions) => {
+    return newPreview.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Modules\Resume\Http\Controllers\NewResumePreviewController::__invoke
+ * @see app/Modules/Resume/Http/Controllers/NewResumePreviewController.php:13
+ * @route '/app/resumes/new-preview'
+ */
+newPreview.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: newPreview.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Modules\Resume\Http\Controllers\NewResumePreviewController::__invoke
+ * @see app/Modules/Resume/Http/Controllers/NewResumePreviewController.php:13
+ * @route '/app/resumes/new-preview'
+ */
+newPreview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: newPreview.url(options),
+    method: 'head',
+})
 const resumes = {
     create: Object.assign(create, create),
 preview: Object.assign(preview, preview),
+newPreview: Object.assign(newPreview, newPreview),
 }
 
 export default resumes
