@@ -69,6 +69,7 @@ declare module 'vue' {
     ResumePagesNewPreview: typeof import('./../modules/resume/pages/NewPreview.vue')['default']
     ResumePagesPreview: typeof import('./../modules/resume/pages/Preview.vue')['default']
     ResumePagesSecondPreview: typeof import('./../modules/resume/pages/SecondPreview.vue')['default']
+    ResumePagesThirdPreview: typeof import('./../modules/resume/pages/ThirdPreview.vue')['default']
     SavedFeedback: typeof import('./../components/SavedFeedback.vue')['default']
     SettingsAppearanceTabs: typeof import('./../modules/settings/components/AppearanceTabs.vue')['default']
     SettingsDeleteUser: typeof import('./../modules/settings/components/DeleteUser.vue')['default']

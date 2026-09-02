@@ -1,216 +1,230 @@
 <script setup lang="ts">
-    import { AtSign, BriefcaseBusiness, Code2, GraduationCap, Link, Phone, Sparkles } from '@lucide/vue'
-    import { computed } from 'vue'
+    import { ref } from 'vue'
     import { useResumeStore } from '../stores/resumeStore'
+
+    import backgroundImage from '@/assets/img/background.png?inline'
+    import emailIcon from '@/assets/img/email.png?inline'
+    import githubIcon from '@/assets/img/github.png?inline'
+    import linkedinIcon from '@/assets/img/linkedin.png?inline'
+    import phoneIcon from '@/assets/img/phone.png?inline'
 
     const store = useResumeStore()
 
-    const skills = computed(() => store.resume.skill.filter(Boolean))
-    const interests = computed(() => store.resume.interest.filter(Boolean))
-    const education = computed(() => store.resume.education.filter((item) => item.degree || item.school || item.year))
-    const experience = computed(() => store.resume.experience.filter((item) => item.role || item.company || item.duration || item.description))
+    const clickedValues = ref<string[]>([])
+
+    const myImages = [
+        {
+            id: 1,
+            name: 'Email',
+            src: emailIcon
+        },
+        {
+            id: 2,
+            name: 'Github',
+            src: githubIcon
+        },
+        {
+            id: 3,
+            name: 'Linkedin',
+            src: linkedinIcon
+        },
+        {
+            id: 4,
+            name: 'Phone',
+            src: phoneIcon
+        }
+    ]
+
+    const goBack = () => {
+        router.visit('/app/resumes/create')
+    }
+
+    const imageClick = (item: (typeof myImages)[number]) => {
+        if (clickedValues.value.length >= 4) {
+            return
+        }
+
+        let valueToShow = ''
+
+        if (item.name === 'Email') {
+            valueToShow = store.resume.email
+        } else if (item.name === 'Github') {
+            valueToShow = store.resume.gitAccount
+        } else if (item.name === 'Linkedin') {
+            valueToShow = store.resume.linkedin
+        } else if (item.name === 'Phone') {
+            valueToShow = store.resume.phone
+        }
+
+        if (valueToShow && !clickedValues.value.includes(valueToShow)) {
+            clickedValues.value.push(valueToShow)
+        }
+    }
 </script>
 
 <template>
-    <Head title="Resume Template" />
+    <div class="relative min-h-screen w-full bg-black/75">
+        <!-- Hero Section -->
+        <div class="relative min-h-[60vh] w-full bg-cover bg-center bg-no-repeat pb-10" :style="{ backgroundImage: `url(${backgroundImage})` }">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/75"></div>
 
-    <main class="min-h-screen bg-[#dfe6ee] px-4 py-10 text-[#172033] sm:px-8 print:bg-white print:p-0">
-        <article
-            class="resume-page mx-auto min-h-[1120px] max-w-[1020px] overflow-hidden bg-[#fbfcfe] shadow-[0_28px_80px_rgba(20,35,60,0.2)] print:min-h-0 print:max-w-none print:shadow-none"
-        >
-            <header class="relative border-b-[10px] border-[#49a7a1] bg-[#132945] px-8 py-12 text-white sm:px-14 sm:py-16">
-                <div class="pointer-events-none absolute top-0 right-0 h-full w-2/5 overflow-hidden">
-                    <div class="absolute -top-24 -right-20 size-72 rotate-12 rounded-[4rem] bg-[#49a7a1]/20" />
-                    <div class="absolute right-28 -bottom-28 size-60 rotate-45 rounded-[3rem] border-[24px] border-white/5" />
-                </div>
+            <!-- Bottom Gradient -->
+            <div class="absolute inset-x-0 bottom-0 h-19 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
 
-                <div class="relative max-w-3xl">
-                    <div class="mb-5 flex items-center gap-3 text-xs font-bold tracking-[0.26em] text-[#71d0c9] uppercase">
-                        <span class="h-px w-10 bg-[#71d0c9]" />
-                        Curriculum Vitae
-                    </div>
-                    <h1 class="text-5xl leading-none font-black tracking-[-0.045em] sm:text-7xl">
-                        {{ store.resume.name || 'Your Name' }}
-                    </h1>
-                    <p class="mt-5 text-base font-semibold tracking-[0.2em] text-slate-300 uppercase sm:text-lg">
-                        {{ store.resume.field || 'Professional Title' }}
-                    </p>
-                </div>
+            <!-- Header -->
+            <header class="relative z-10 flex h-16 items-center bg-black/10 px-9 shadow-lg lg:px-16">
+                <h1 class="font-serif text-5xl font-semibold text-green-400">resume</h1>
             </header>
 
-            <div class="grid lg:grid-cols-[310px_minmax(0,1fr)]">
-                <aside class="bg-[#eef3f7] px-8 py-11 sm:px-10 sm:py-14">
-                    <section>
-                        <h2 class="side-heading">Contact</h2>
-                        <div class="mt-6 grid gap-4 text-sm text-slate-600">
-                            <a v-if="store.resume.email" :href="`mailto:${store.resume.email}`" class="contact-row">
-                                <span class="icon-box"><AtSign class="size-4" /></span>
-                                <span>{{ store.resume.email }}</span>
-                            </a>
-                            <a v-if="store.resume.phone" :href="`tel:${store.resume.phone}`" class="contact-row">
-                                <span class="icon-box"><Phone class="size-4" /></span>
-                                <span>{{ store.resume.phone }}</span>
-                            </a>
-                            <a v-if="store.resume.linkedin" :href="store.resume.linkedin" target="_blank" rel="noreferrer" class="contact-row">
-                                <span class="icon-box"><Link class="size-4" /></span>
-                                <span>{{ store.resume.linkedin }}</span>
-                            </a>
-                            <a v-if="store.resume.gitAccount" :href="store.resume.gitAccount" target="_blank" rel="noreferrer" class="contact-row">
-                                <span class="icon-box"><Code2 class="size-4" /></span>
-                                <span>{{ store.resume.gitAccount }}</span>
-                            </a>
-                            <p v-if="!store.resume.email && !store.resume.phone && !store.resume.linkedin && !store.resume.gitAccount" class="text-slate-400">
-                                Your contact details
-                            </p>
-                        </div>
-                    </section>
+            <!-- Name -->
+            <div class="relative z-10 mt-20 px-6 lg:ml-[175px]">
+                <h1 class="font-serif text-white sm:text-2xl lg:text-3xl">
+                    Hello,
+                    <br />
+                    My name is
 
-                    <section v-if="skills.length" class="side-section">
-                        <h2 class="side-heading">Core Skills</h2>
-                        <div class="mt-6 grid gap-4">
-                            <div v-for="skill in skills" :key="skill">
-                                <div class="mb-2 flex items-center gap-3">
-                                    <span class="size-1.5 rounded-full bg-[#49a7a1]" />
-                                    <span class="text-sm font-semibold text-[#243852]">{{ skill }}</span>
-                                </div>
-                                <div class="h-1 overflow-hidden rounded-full bg-slate-300/70">
-                                    <div class="h-full w-[82%] rounded-full bg-[#49a7a1]" />
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    <span class="mt-2 block font-serif text-3xl text-green-500 md:text-5xl lg:mt-0 lg:ml-2 lg:inline-block lg:text-6xl">
+                        {{ store.resume.name }}
+                    </span>
+                </h1>
+            </div>
 
-                    <section v-if="education.length" class="side-section">
-                        <h2 class="side-heading">Education</h2>
-                        <div class="mt-6 space-y-7">
-                            <div v-for="(item, index) in education" :key="index" class="relative pl-5">
-                                <span class="absolute top-1.5 left-0 size-2 rounded-full bg-[#49a7a1] ring-4 ring-[#d9e9e9]" />
-                                <p v-if="item.year" class="text-[11px] font-bold tracking-widest text-[#388983] uppercase">{{ item.year }}</p>
-                                <h3 v-if="item.degree" class="mt-1.5 text-sm leading-5 font-bold text-[#172f4b]">{{ item.degree }}</h3>
-                                <p v-if="item.school" class="mt-1 text-xs leading-5 text-slate-500">{{ item.school }}</p>
-                            </div>
-                        </div>
-                    </section>
+            <!-- Field -->
+            <div class="relative z-10 mt-4 px-6 lg:mt-6 lg:ml-[175px]">
+                <h1 class="font-serif text-lg text-white md:text-2xl lg:text-3xl">
+                    I'm
 
-                    <section v-if="interests.length" class="side-section">
-                        <h2 class="side-heading">Interests</h2>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span v-for="interest in interests" :key="interest" class="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-sm">
-                                {{ interest }}
-                            </span>
-                        </div>
-                    </section>
-                </aside>
+                    <span class="ml-1 font-serif text-xl text-green-500 md:text-3xl lg:ml-2 lg:text-4xl">
+                        {{ store.resume.field }}
+                    </span>
+                </h1>
+            </div>
 
-                <div class="px-8 py-11 sm:px-14 sm:py-14">
-                    <section v-if="store.resume.about">
-                        <h2 class="main-heading"><Sparkles class="size-5" /> Professional Profile</h2>
-                        <p class="mt-5 border-l-4 border-[#49a7a1] pl-5 text-[15px] leading-7 whitespace-pre-line text-slate-600">
-                            {{ store.resume.about }}
-                        </p>
-                    </section>
-
-                    <section v-if="experience.length" class="main-section">
-                        <h2 class="main-heading"><BriefcaseBusiness class="size-5" /> Work Experience</h2>
-                        <div class="mt-8 space-y-10">
-                            <div v-for="(item, index) in experience" :key="index" class="relative grid gap-3 sm:grid-cols-[130px_minmax(0,1fr)] sm:gap-6">
-                                <div>
-                                    <span v-if="item.duration" class="inline-flex rounded-full bg-[#e0f2f0] px-3 py-1 text-[11px] font-bold tracking-wide text-[#337b76] uppercase">
-                                        {{ item.duration }}
-                                    </span>
-                                </div>
-                                <div class="relative border-b border-slate-200 pb-9 last:border-b-0">
-                                    <h3 class="text-lg font-extrabold text-[#172f4b]">{{ item.role || 'Position' }}</h3>
-                                    <p v-if="item.company" class="mt-1 text-sm font-bold text-[#49a7a1]">{{ item.company }}</p>
-                                    <p v-if="item.description" class="mt-4 text-sm leading-6 whitespace-pre-line text-slate-600">{{ item.description }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section v-if="store.resume.project" class="main-section">
-                        <h2 class="main-heading"><Code2 class="size-5" /> Featured Projects</h2>
-                        <div class="mt-6 rounded-xl border border-slate-200 bg-white p-6 shadow-[0_8px_30px_rgba(30,50,75,0.06)]">
-                            <p class="text-[15px] leading-7 whitespace-pre-line text-slate-600">{{ store.resume.project }}</p>
-                        </div>
-                    </section>
-
-                    <section v-if="!store.resume.about && !experience.length && !store.resume.project">
-                        <h2 class="main-heading"><GraduationCap class="size-5" /> Resume Content</h2>
-                        <p class="mt-5 text-[15px] leading-7 text-slate-400">Your profile, professional experience and projects will appear here.</p>
-                    </section>
+            <!-- Contact Icons -->
+            <div class="relative z-10 mt-18 flex flex-wrap items-center gap-6 px-6 lg:ml-[175px] lg:gap-10">
+                <div v-for="item in myImages" :key="item.id" class="flex flex-col">
+                    <img
+                        :src="item.src"
+                        :alt="item.name"
+                        class="h-10 w-10 cursor-pointer object-contain invert transition-transform hover:scale-110"
+                        @click="imageClick(item)"
+                    />
                 </div>
             </div>
-        </article>
-    </main>
+
+            <!-- Selected Contact Values -->
+            <div class="relative z-10 mt-8 flex flex-wrap gap-3 px-6 lg:mt-10 lg:ml-[175px] lg:gap-4">
+                <div
+                    v-for="(value, index) in clickedValues"
+                    :key="index"
+                    class="rounded-lg border border-green-500 bg-green-500/20 px-4 py-2 font-serif text-green-400"
+                >
+                    {{ value }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Content -->
+        <div class="mt-20 grow space-y-20 pb-20">
+            <!-- About -->
+            <div v-if="store.resume.about" class="max-w-4xl px-6 lg:ml-[175px]">
+                <h2 class="border-l-4 pl-4 font-serif text-3xl font-bold text-green-400">About Me</h2>
+
+                <p class="mt-4 font-serif text-lg leading-relaxed whitespace-pre-line text-gray-300 italic">"{{ store.resume.about }}"</p>
+            </div>
+
+            <!-- Education -->
+            <div v-if="store.resume.education?.length" class="max-w-4xl px-6 lg:ml-[175px]">
+                <h2 class="border-l-4 pl-4 font-serif text-3xl font-bold text-green-400">Education</h2>
+
+                <div v-for="(education, index) in store.resume.education" :key="index" class="mt-4 mb-6">
+                    <h3 v-if="education.degree" class="text-xl font-bold text-white">
+                        {{ education.degree }}
+                    </h3>
+
+                    <p v-if="education.school" class="font-semibold text-green-500">
+                        {{ education.school }}
+                    </p>
+
+                    <p v-if="education.year" class="text-sm text-gray-400">
+                        {{ education.year }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div v-if="store.resume.skill?.length" class="max-w-4xl px-6 lg:ml-[175px]">
+                <h2 class="border-l-4 pl-4 font-serif text-3xl font-bold text-green-400">Skills</h2>
+
+                <div class="mt-4 flex max-w-xl flex-wrap gap-3">
+                    <span
+                        v-for="(skill, index) in store.resume.skill"
+                        :key="index"
+                        v-show="skill"
+                        class="rounded-full border border-green-500/30 bg-gray-800 px-4 py-1 text-green-400"
+                    >
+                        {{ skill }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div v-if="store.resume.experience?.length" class="max-w-4xl px-6 lg:ml-[175px]">
+                <h2 class="border-l-4 pl-4 font-serif text-3xl font-bold text-green-400">Experience</h2>
+
+                <div v-for="(experience, index) in store.resume.experience" :key="index" class="mt-4 mb-6">
+                    <h3 v-if="experience.role" class="text-xl font-bold text-white">
+                        {{ experience.role }}
+                    </h3>
+
+                    <p v-if="experience.company || experience.duration" class="font-semibold text-green-500">
+                        {{ experience.company }}
+
+                        <span v-if="experience.company && experience.duration" class="text-gray-400"> | </span>
+
+                        <span v-if="experience.duration" class="text-sm text-gray-400">
+                            {{ experience.duration }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Projects -->
+            <div v-if="store.resume.project" class="max-w-4xl px-6 lg:ml-[175px]">
+                <h2 class="border-l-4 pl-4 font-serif text-3xl font-bold text-green-400 uppercase">Projects</h2>
+
+                <p class="mt-4 text-lg leading-relaxed whitespace-pre-line text-gray-300">
+                    {{ store.resume.project }}
+                </p>
+            </div>
+
+            <!-- Interests -->
+            <div v-if="store.resume.interest?.length" class="max-w-4xl px-6 lg:ml-[175px]">
+                <h2 class="border-l-4 pl-4 font-serif text-3xl font-bold text-green-400 uppercase">Interests</h2>
+
+                <div class="mt-6 flex max-w-xl flex-wrap gap-3">
+                    <span
+                        v-for="(interest, index) in store.resume.interest"
+                        :key="index"
+                        v-show="interest"
+                        class="rounded-full border border-green-500/30 bg-gray-800 px-4 py-1 text-green-400"
+                    >
+                        {{ interest }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="px-6 pb-20 lg:ml-[175px]">
+            <button
+                type="button"
+                class="relative inline-flex items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-orange-400 px-6 py-3 text-lg font-medium text-white transition-colors hover:from-pink-600 hover:to-orange-500"
+                @click="goBack"
+            >
+                ← Back
+            </button>
+        </div>
+    </div>
 </template>
-
-<style scoped>
-    .side-section {
-        margin-top: 2.75rem;
-        border-top: 1px solid #ccd6df;
-        padding-top: 2.75rem;
-    }
-
-    .side-heading {
-        color: #172f4b;
-        font-size: 0.75rem;
-        font-weight: 800;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-    }
-
-    .side-heading::after {
-        display: block;
-        width: 2rem;
-        height: 3px;
-        margin-top: 0.75rem;
-        border-radius: 9999px;
-        background: #49a7a1;
-        content: '';
-    }
-
-    .contact-row {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        overflow-wrap: anywhere;
-    }
-
-    .icon-box {
-        display: inline-flex;
-        width: 2rem;
-        height: 2rem;
-        flex: none;
-        align-items: center;
-        justify-content: center;
-        border-radius: 0.5rem;
-        background: #172f4b;
-        color: #71d0c9;
-    }
-
-    .main-section {
-        margin-top: 3.5rem;
-    }
-
-    .main-heading {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        color: #172f4b;
-        font-size: 1.05rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-    }
-
-    .main-heading :deep(svg) {
-        color: #49a7a1;
-    }
-
-    @media print {
-        .resume-page {
-            print-color-adjust: exact;
-        }
-    }
-</style>
